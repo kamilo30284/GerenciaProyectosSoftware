@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mar Sostenible 360 - Professional Dark Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-gray': '#0f121a',
+                        'graphite': '#1c212c',
+                        'slate-custom': '#374151',
+                        'deep-purple': '#4c1d95',
+                        'electric-purple': '#7c3aed',
+                        'soft-purple': '#a78bfa',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'gradient-slow': 'gradient 15s ease infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-subtle': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        gradient: {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #0b0f1a; color: #f3f4f6; }
+        .glass-panel {
+            background: rgba(28, 33, 44, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(124, 58, 237, 0.15);
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .purple-gradient-text {
+            background: linear-gradient(to right, #a78bfa, #7c3aed, #d8b4fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0b0f1a; }
+        ::-webkit-scrollbar-thumb { background: #4c1d95; border-radius: 10px; }
+    </style>
+</head>
+<body class="font-sans selection:bg-electric-purple/30 selection:text-soft-purple overflow-x-hidden">
+
+    <!-- Topbar -->
+    <header class="fixed top-0 left-0 lg:left-20 right-0 h-16 glass-panel border-b border-white/5 z-40 px-6 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <h2 class="text-sm font-bold tracking-widest uppercase text-gray-400 lg:hidden">Mar 360</h2>
+            <div class="hidden lg:flex items-center gap-2 px-3 py-1 rounded-md bg-white/5 border border-white/10">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-[10px] font-bold uppercase text-gray-400">Sistema Activo</span>
+            </div>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="text-right hidden sm:block">
+                <p class="text-[10px] text-gray-500 font-bold uppercase">Gerencia de Software</p>
+                <p class="text-xs text-soft-purple font-medium">V. 2.5.0</p>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-deep-purple to-electric-purple flex items-center justify-center border border-white/20">
+                <i class="ph ph-user text-white"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Sidebar -->
+    <aside class="fixed left-0 top-0 h-full w-20 hover:w-64 bg-deep-gray border-r border-white/5 z-50 transition-all duration-300 group flex flex-col py-8 overflow-hidden">
+        <div class="px-6 mb-12 flex items-center gap-4">
+            <div class="w-8 h-8 rounded-lg bg-electric-purple flex items-center justify-center shrink-0 shadow-lg shadow-electric-purple/40">
+                <i class="ph-fill ph-waves text-white text-xl"></i>
+            </div>
+            <span class="font-bold text-xl tracking-tight opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-white">Mar 360</span>
+        </div>
+        <nav class="flex-1 px-4 space-y-4">
+            <a href="#inicio" class="flex items-center gap-4 p-3 rounded-xl hover:bg-electric-purple/10 text-gray-400 hover:text-soft-purple transition-all group/item">
+                <i class="ph ph-house text-2xl"></i>
+                <span class="font-medium opacity-0 group-hover:opacity-100 transition-opacity">Inicio</span>
+            </a>
+            <a href="#proyectos" class="flex items-center gap-4 p-3 rounded-xl hover:bg-electric-purple/10 text-gray-400 hover:text-soft-purple transition-all group/item">
+                <i class="ph ph-stack text-2xl"></i>
+                <span class="font-medium opacity-0 group-hover:opacity-100 transition-opacity">Proyectos</span>
+            </a>
+            <a href="#relacion" class="flex items-center gap-4 p-3 rounded-xl hover:bg-electric-purple/10 text-gray-400 hover:text-soft-purple transition-all group/item">
+                <i class="ph ph-intersect text-2xl"></i>
+                <span class="font-medium opacity-0 group-hover:opacity-100 transition-opacity">Relación</span>
+            </a>
+            <a href="#objetivo" class="flex items-center gap-4 p-3 rounded-xl hover:bg-electric-purple/10 text-gray-400 hover:text-soft-purple transition-all group/item">
+                <i class="ph ph-target text-2xl"></i>
+                <span class="font-medium opacity-0 group-hover:opacity-100 transition-opacity">Objetivo</span>
+            </a>
+            <a href="#beneficios" class="flex items-center gap-4 p-3 rounded-xl hover:bg-electric-purple/10 text-gray-400 hover:text-soft-purple transition-all group/item">
+                <i class="ph ph-chart-line-up text-2xl"></i>
+                <span class="font-medium opacity-0 group-hover:opacity-100 transition-opacity">Beneficios</span>
+            </a>
+        </nav>
+        <div class="px-6 mt-auto">
+             <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-gray-500 group-hover:w-full transition-all overflow-hidden">
+                <i class="ph ph-gear text-xl"></i>
+                <span class="ml-4 text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap uppercase">Ajustes</span>
+            </div>
+        </div>
+    </aside>
+
+    <main class="lg:ml-20 pt-16">
+        
+        <!-- Hero Section -->
+        <section id="inicio" class="min-h-[90vh] flex flex-col justify-center items-center text-center relative px-6 overflow-hidden">
+            <!-- Animated Background Circles -->
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-electric-purple/5 rounded-full blur-[120px] animate-pulse-subtle"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-deep-purple/10 rounded-full blur-[150px] animate-float"></div>
+
+            <div class="relative z-10 max-w-4xl">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-white/10 text-soft-purple font-semibold text-sm mb-8 shadow-xl">
+                    <span class="w-2 h-2 rounded-full bg-electric-purple animate-ping"></span>
+                    Gerencia de Proyectos de Software
+                </div>
+                <h1 class="text-6xl lg:text-7xl font-black mb-8 tracking-tighter">
+                    Programa <br/>
+                    <span class="purple-gradient-text">“Mar Sostenible 360”</span>
+                </h1>
+                <p class="text-xl lg:text-2xl text-gray-400 max-w-3xl mx-auto font-light leading-relaxed mb-12">
+                    <strong class="font-semibold text-white">Biodiversidad + Gastronomía + Trazabilidad</strong> <br/>
+                    para una economía marina responsable.
+                </p>
+                <div class="flex gap-4 justify-center">
+                    <a href="#proyectos" class="px-8 py-4 bg-electric-purple hover:bg-soft-purple text-white font-bold rounded-2xl transition-all shadow-lg shadow-electric-purple/40 flex items-center gap-2">
+                        Explorar Programa <i class="ph ph-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Proyectos Section (Gris Oscuro) -->
+        <section id="proyectos" class="py-32 relative bg-graphite/40 reveal">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl font-bold mb-4">Proyectos que lo componen</h2>
+                    <div class="w-24 h-1 bg-electric-purple mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Project 1 -->
+                    <div class="glass-panel p-10 rounded-[2.5rem] hover:bg-graphite/60 transition-all group relative overflow-hidden">
+                        <div class="absolute -right-4 -top-4 w-24 h-24 bg-electric-purple/10 rounded-full blur-2xl group-hover:bg-electric-purple/20 transition-all"></div>
+                        <div class="w-16 h-16 rounded-2xl bg-deep-purple/20 text-soft-purple flex items-center justify-center text-3xl mb-8 border border-white/5">
+                            <i class="ph-fill ph-fish-simple"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-electric-purple uppercase tracking-[0.2em] mb-2 block">Proyecto #1</span>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Biodiversidad Marina</h3>
+                        <p class="text-gray-400 text-sm font-medium">(Catálogo Digital de Especies)</p>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="glass-panel p-10 rounded-[2.5rem] hover:bg-graphite/60 transition-all group relative overflow-hidden border-t-2 border-t-electric-purple/50">
+                        <div class="absolute -right-4 -top-4 w-24 h-24 bg-soft-purple/10 rounded-full blur-2xl group-hover:bg-soft-purple/20 transition-all"></div>
+                        <div class="w-16 h-16 rounded-2xl bg-electric-purple text-white flex items-center justify-center text-3xl mb-8 shadow-lg shadow-electric-purple/30">
+                            <i class="ph-fill ph-fork-knife"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-soft-purple uppercase tracking-[0.2em] mb-2 block">Proyecto #2</span>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Mar a la Mesa</h3>
+                        <p class="text-gray-400 text-sm font-medium">(Guía Gastronómica y Comercial de la Pesca Local)</p>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="glass-panel p-10 rounded-[2.5rem] hover:bg-graphite/60 transition-all group relative overflow-hidden">
+                        <div class="absolute -right-4 -top-4 w-24 h-24 bg-deep-purple/10 rounded-full blur-2xl group-hover:bg-deep-purple/20 transition-all"></div>
+                        <div class="w-16 h-16 rounded-2xl bg-deep-purple/20 text-soft-purple flex items-center justify-center text-3xl mb-8 border border-white/5">
+                            <i class="ph-fill ph-qr-code"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-electric-purple uppercase tracking-[0.2em] mb-2 block">Proyecto #3</span>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Del Estanque al Plato</h3>
+                        <p class="text-gray-400 text-sm font-medium">(Trazabilidad QR y Comercio Justo)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Relación Section (Gris Profundo con detalles Morados) -->
+        <section id="relacion" class="py-32 relative reveal">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="glass-panel rounded-[3rem] p-8 lg:p-16 border-white/5 bg-gradient-to-br from-graphite/50 to-deep-gray shadow-2xl">
+                    <h2 class="text-4xl font-bold mb-12 flex items-center gap-4">
+                        <span class="text-electric-purple">1)</span> ¿Cómo están relacionados?
+                    </h2>
+
+                    <div class="grid lg:grid-cols-5 gap-12 items-center mb-16">
+                        <div class="lg:col-span-2 space-y-8">
+                            <p class="text-xl text-gray-300 leading-relaxed border-l-4 border-electric-purple pl-6">
+                                Los tres proyectos se conectan como una cadena completa:
+                            </p>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="px-4 py-2 bg-deep-purple/30 rounded-lg text-soft-purple text-[10px] font-bold uppercase tracking-wider border border-soft-purple/20">Conocimiento</span>
+                                <i class="ph ph-arrow-right self-center text-gray-600"></i>
+                                <span class="px-4 py-2 bg-deep-purple/30 rounded-lg text-soft-purple text-[10px] font-bold uppercase tracking-wider border border-soft-purple/20">Consumo</span>
+                                <i class="ph ph-arrow-right self-center text-gray-600"></i>
+                                <span class="px-4 py-2 bg-deep-purple/30 rounded-lg text-soft-purple text-[10px] font-bold uppercase tracking-wider border border-soft-purple/20">Transparencia</span>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-3 grid gap-6">
+                            <!-- Link 1 -->
+                            <div class="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-electric-purple/40 hover:bg-white/10 transition-all flex gap-5">
+                                <div class="w-12 h-12 rounded-full bg-electric-purple/20 text-electric-purple flex items-center justify-center shrink-0 border border-electric-purple/10"><i class="ph-bold ph-number-one text-xl"></i></div>
+                                <p class="text-gray-400 text-sm leading-relaxed"><strong class="text-white block mb-1">Proyecto #1 (Biodiversidad):</strong> Informa qué especies existen, su hábitat, temporadas y conservación.</p>
+                            </div>
+                            <!-- Link 2 -->
+                            <div class="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-electric-purple/40 hover:bg-white/10 transition-all flex gap-5">
+                                <div class="w-12 h-12 rounded-full bg-electric-purple/20 text-electric-purple flex items-center justify-center shrink-0 border border-electric-purple/10"><i class="ph-bold ph-number-two text-xl"></i></div>
+                                <p class="text-gray-400 text-sm leading-relaxed"><strong class="text-white block mb-1">Proyecto #3 (Trazabilidad QR):</strong> Garantiza el origen del producto y mejora el comercio justo B2B.</p>
+                            </div>
+                            <!-- Link 3 -->
+                            <div class="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-electric-purple/40 hover:bg-white/10 transition-all flex gap-5">
+                                <div class="w-12 h-12 rounded-full bg-electric-purple/20 text-electric-purple flex items-center justify-center shrink-0 border border-electric-purple/10"><i class="ph-bold ph-number-three text-xl"></i></div>
+                                <p class="text-gray-400 text-sm leading-relaxed"><strong class="text-white block mb-1">Proyecto #2 (Mar a la Mesa):</strong> Convierte eso en impacto económico local conectando restaurantes y consumidores.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-electric-purple/10 border border-electric-purple/20 p-10 rounded-[2.5rem] text-center">
+                        <p class="text-2xl font-light text-gray-200">
+                            En conjunto, el programa hace que el sector pase de "vender pescado" a <br/>
+                            <strong class="font-black text-soft-purple uppercase tracking-[0.15em] text-3xl block mt-4 drop-shadow-lg">vender confianza e información.</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Objetivo Section (Gris con aura Púrpura) -->
+        <section id="objetivo" class="py-32 bg-graphite/20 reveal">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="order-2 lg:order-1">
+                        <h2 class="text-4xl font-bold mb-8">2) Objetivo común del programa</h2>
+                        <p class="text-xl text-gray-400 leading-relaxed mb-10">
+                            Fortalecer la economía marina local y la sostenibilidad del recurso mediante un <span class="text-soft-purple font-bold">ecosistema digital</span> que:
+                        </p>
+                        <div class="space-y-8">
+                            <div class="flex gap-6 group">
+                                <div class="w-14 h-14 rounded-2xl bg-electric-purple/10 text-electric-purple flex items-center justify-center shrink-0 group-hover:bg-electric-purple group-hover:text-white transition-all border border-electric-purple/10">
+                                    <i class="ph-bold ph-graduation-cap text-3xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-white mb-2">Educa</h4>
+                                    <p class="text-gray-400">sobre biodiversidad marina y la riqueza de las especies locales.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-6 group">
+                                <div class="w-14 h-14 rounded-2xl bg-electric-purple/10 text-electric-purple flex items-center justify-center shrink-0 group-hover:bg-electric-purple group-hover:text-white transition-all border border-electric-purple/10">
+                                    <i class="ph-bold ph-heart text-3xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-white mb-2">Promueve</h4>
+                                    <p class="text-gray-400">el consumo gastronómico responsable y consciente.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-6 group">
+                                <div class="w-14 h-14 rounded-2xl bg-electric-purple/10 text-electric-purple flex items-center justify-center shrink-0 group-hover:bg-electric-purple group-hover:text-white transition-all border border-electric-purple/10">
+                                    <i class="ph-bold ph-handshake text-3xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-white mb-2">Garantiza</h4>
+                                    <p class="text-gray-400">trazabilidad y comercio justo desde el productor al consumidor.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-1 lg:order-2 relative flex justify-center">
+                        <div class="absolute inset-0 bg-electric-purple/10 blur-[100px] rounded-full"></div>
+                        <div class="glass-panel p-16 rounded-[4rem] border-white/10 relative z-10 text-center transform hover:rotate-2 transition-all duration-700 shadow-2xl">
+                            <div class="relative">
+                                <div class="absolute inset-0 bg-soft-purple blur-3xl opacity-20 animate-pulse"></div>
+                                <i class="ph-fill ph-globe-hemisphere-west text-[10rem] text-soft-purple mb-8 relative z-10"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white tracking-widest uppercase">Ecosistema Integrado</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Beneficios Section -->
+        <section id="beneficios" class="py-32 reveal">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl font-bold mb-4">3) Beneficios por gestión coordinada</h2>
+                    <div class="w-24 h-1 bg-electric-purple mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Benefit 1 -->
+                    <div class="p-12 rounded-[2.5rem] bg-graphite/40 border border-white/5 hover:border-soft-purple/30 hover:bg-graphite/60 transition-all group">
+                        <div class="text-soft-purple mb-8 group-hover:scale-110 transition-transform"><i class="ph-fill ph-database text-5xl"></i></div>
+                        <h3 class="text-xl font-bold mb-4 text-white">Datos compartidos</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">
+                            El catálogo de especies (#1) alimenta automáticamente la guía gastronómica (#2) y la trazabilidad (#3) evitando duplicidad y errores.
+                        </p>
+                    </div>
+                    <!-- Benefit 2 -->
+                    <div class="p-12 rounded-[2.5rem] bg-graphite/40 border border-white/5 hover:border-soft-purple/30 hover:bg-graphite/60 transition-all group">
+                        <div class="text-soft-purple mb-8 group-hover:scale-110 transition-transform"><i class="ph-fill ph-shield-check text-5xl"></i></div>
+                        <h3 class="text-xl font-bold mb-4 text-white">Confianza total</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">
+                            En #2, cada establecimiento puede mostrar un <strong>QR trazable (#3)</strong> y enlazar a la <strong>ficha educativa (#1)</strong> para el consumidor.
+                        </p>
+                    </div>
+                    <!-- Benefit 3 -->
+                    <div class="p-12 rounded-[2.5rem] bg-graphite/40 border border-white/5 hover:border-soft-purple/30 hover:bg-graphite/60 transition-all group">
+                        <div class="text-soft-purple mb-8 group-hover:scale-110 transition-transform"><i class="ph-fill ph-anchor text-5xl"></i></div>
+                        <h3 class="text-xl font-bold mb-4 text-white">Pesca responsable</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">
+                            El sistema alerta si una especie está en veda (#1), reflejándolo automáticamente en las compras y oferta comercial (#2 y #3).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-16 border-t border-white/5 text-center bg-deep-gray relative z-10">
+            <p class="text-gray-500 text-[10px] font-bold tracking-[0.3em] uppercase mb-4">Gerencia de Proyectos de Software</p>
+            <div class="flex justify-center gap-6 mb-8 text-gray-400 text-xl">
+                <i class="ph ph-instagram-logo hover:text-soft-purple transition-colors"></i>
+                <i class="ph ph-linkedin-logo hover:text-soft-purple transition-colors"></i>
+                <i class="ph ph-globe hover:text-soft-purple transition-colors"></i>
+            </div>
+            <p class="text-soft-purple font-black tracking-widest">MAR SOSTENIBLE 360 &copy; 2026</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Initial call
+    </script>
+</body>
+</html>
