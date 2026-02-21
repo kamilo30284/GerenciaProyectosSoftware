@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mar a la Mesa | Gestión de Proyectos</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-white text-slate-900">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Icon component wrapper for Lucide
+        const Icon = ({ name, className = "" }) => {
+            const [iconContent, setIconContent] = useState(null);
+
+            useEffect(() => {
+                // Lucide replacement logic for dynamic icons
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [name]);
+
+            return <i data-lucide={name} className={className}></i>;
+        };
+
+        const TimelineItem = ({ side, week, title, items }) => {
+            const isLeft = side === 'left';
+            return (
+                <div className={`flex flex-col md:flex-row items-center w-full mb-8 ${isLeft ? 'md:flex-row-reverse' : ''}`}>
+                    <div className="hidden md:block w-1/2"></div>
+                    <div className="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-16 h-8 rounded-full flex-shrink-0">
+                        <h1 className="mx-auto font-bold text-xs text-white uppercase">{week}</h1>
+                    </div>
+                    <div className={`order-1 bg-white rounded-2xl border border-slate-200 shadow-sm w-full md:w-1/2 px-6 py-4 mt-4 md:mt-0 ${isLeft ? 'md:mr-8 md:text-right' : 'md:ml-8 text-left'}`}>
+                        <h3 className="mb-2 font-bold text-slate-900 text-lg">{title}</h3>
+                        <ul className={`text-sm text-slate-600 space-y-1 ${isLeft ? 'md:flex md:flex-col md:items-end' : ''}`}>
+                            {items.map((item, i) => (
+                                <li key={i} className="flex items-center gap-2">
+                                    {!isLeft && <div className="w-1.5 h-1.5 bg-blue-400 rounded-full flex-shrink-0"></div>}
+                                    <span>{item}</span>
+                                    {isLeft && <div className="w-1.5 h-1.5 bg-blue-400 rounded-full hidden md:block flex-shrink-0"></div>}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            );
+        };
+
+        const DeliverableCard = ({ iconName, title, list }) => {
+            return (
+                <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="bg-blue-50 w-12 h-12 rounded-lg flex items-center justify-center text-blue-600 mb-6">
+                        <Icon name={iconName} className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-4">{title}</h3>
+                    <ul className="space-y-3">
+                        {list.map((item, i) => (
+                            <li key={i} className="flex items-start gap-2 text-slate-600 text-sm">
+                                <Icon name="chevron-right" className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+                                <span>{item}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            );
+        };
+
+        function App() {
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, []);
+
+            return (
+                <div className="min-h-screen">
+                    {/* Navbar Superior */}
+                    <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="flex justify-between items-center h-16">
+                                <div className="flex items-center gap-2">
+                                    <Icon name="ship" className="h-6 w-6 text-blue-700" />
+                                    <span className="font-bold text-xl tracking-tight">Mar a la Mesa <span className="text-blue-600 font-normal text-sm ml-2 hidden sm:inline">| Gestión de Proyectos</span></span>
+                                </div>
+                                
+                                <div className="hidden md:flex items-center gap-6">
+                                    <button onClick={() => document.getElementById('objetivos')?.scrollIntoView({behavior: 'smooth'})} className="text-sm font-medium text-slate-600 hover:text-blue-600">Objetivos</button>
+                                    <button onClick={() => document.getElementById('cronograma')?.scrollIntoView({behavior: 'smooth'})} className="text-sm font-medium text-slate-600 hover:text-blue-600">Cronograma</button>
+                                    <button onClick={() => document.getElementById('entregables')?.scrollIntoView({behavior: 'smooth'})} className="text-sm font-medium text-slate-600 hover:text-blue-600">Entregables</button>
+                                    <div className="h-6 w-[1px] bg-slate-200 mx-2"></div>
+                                    <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm font-bold transition-all shadow-md">
+                                        Ver Prototipo <Icon name="external-link" className="h-4 w-4" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* Hero */}
+                    <header className="pt-32 pb-20 bg-gradient-to-b from-blue-50 to-white">
+                        <div className="max-w-7xl mx-auto px-4 text-center">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold mb-6">
+                                <Icon name="bar-chart-3" className="h-3.5 w-3.5" /> PROYECTO MVP 2024
+                            </div>
+                            <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-tight">
+                                Mar a la Mesa: Guía Gastronómica y Comercial
+                            </h1>
+                            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                                Centralización y promoción de la oferta marina de Santa Marta para conectar comensales con la pesca local sostenible.
+                            </p>
+                            
+                            <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                                    <Icon name="clock" className="h-5 w-5 text-blue-600 mx-auto mb-2" />
+                                    <p className="text-xs text-slate-500 uppercase font-bold">Duración</p>
+                                    <p className="font-bold">8 - 10 Semanas</p>
+                                </div>
+                                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                                    <Icon name="map-pin" className="h-5 w-5 text-blue-600 mx-auto mb-2" />
+                                    <p className="text-xs text-slate-500 uppercase font-bold">Ubicación</p>
+                                    <p className="font-bold">Santa Marta, CO</p>
+                                </div>
+                                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                                    <Icon name="target" className="h-5 w-5 text-blue-600 mx-auto mb-2" />
+                                    <p className="text-xs text-slate-500 uppercase font-bold">Fase Actual</p>
+                                    <p className="font-bold text-blue-600">Planificación (MVP)</p>
+                                </div>
+                                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                                    <Icon name="users" className="h-5 w-5 text-blue-600 mx-auto mb-2" />
+                                    <p className="text-xs text-slate-500 uppercase font-bold">Impacto</p>
+                                    <p className="font-bold">Social y Comercial</p>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* Objetivos */}
+                    <section id="objetivos" className="py-20 border-t border-slate-100 px-4">
+                        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+                            <div>
+                                <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
+                                    <Icon name="target" className="text-blue-600 w-8 h-8" /> Objetivo Principal
+                                </h2>
+                                <p className="text-lg text-slate-700 leading-relaxed mb-8">
+                                    Promover la oferta gastronómica marina de Santa Marta y sus alrededores, garantizando transparencia en precios, ubicación y calidad, mientras se fortalece la trazabilidad de la pesca local.
+                                </p>
+                                <h3 className="font-bold text-slate-900 mb-4 uppercase text-sm tracking-widest">Ejes Estratégicos</h3>
+                                <ul className="space-y-4">
+                                    {[
+                                        "Conectividad entre pescadores y comensales.",
+                                        "Digitalización de la oferta (Menús y Precios).",
+                                        "Promoción de la Pesca del Día.",
+                                        "Integración de rutas turísticas inteligentes."
+                                    ].map((item, i) => (
+                                        <li key={i} className="flex items-center gap-3 text-slate-600">
+                                            <Icon name="check-circle-2" className="h-5 w-5 text-green-500" />
+                                            <span>{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className="bg-slate-50 p-4 sm:p-8 rounded-3xl border border-slate-200">
+                                <div className="aspect-video bg-blue-900 rounded-2xl flex items-center justify-center text-white overflow-hidden shadow-2xl relative">
+                                    <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&q=80" className="absolute inset-0 w-full h-full object-cover opacity-50" alt="Vista de Santa Marta" />
+                                    <div className="relative z-10 text-center px-4">
+                                        <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20">
+                                            <p className="italic text-xl">"Del mar directo a la mesa del turista"</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Cronograma */}
+                    <section id="cronograma" className="py-20 bg-slate-50 px-4">
+                        <div className="max-w-7xl mx-auto">
+                            <div className="text-center mb-16">
+                                <h2 className="text-3xl font-bold mb-4">Plan de Ejecución (8-10 Semanas)</h2>
+                                <p className="text-slate-600">Estructura de Desglose de Trabajo (WBS) para el lanzamiento del MVP.</p>
+                            </div>
+                            <div className="relative">
+                                <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-blue-200 md:left-1/2 md:-ml-0.5"></div>
+                                <div className="space-y-12">
+                                    <TimelineItem side="left" week="1-2" title="Fase 1: Levantamiento y Diseño" items={["Definición de requerimientos UX/UI", "Diseño de arquitectura de datos", "Mapeo inicial de establecimientos aliados"]} />
+                                    <TimelineItem side="right" week="3-6" title="Fase 2: Desarrollo del Core" items={["Desarrollo de App Web Responsive", "Implementación de Buscador Inteligente", "Integración con APIs de mapas"]} />
+                                    <TimelineItem side="left" week="7-8" title="Fase 3: Gestión de Aliados" items={["Carga masiva de menús digitales", "Habilitación del Dashboard de Aliados", "Pruebas de campo en Santa Marta"]} />
+                                    <TimelineItem side="right" week="9-10" title="Fase 4: Lanzamiento y Feedback" items={["Publicación de la API Gastronómica", "Recolección de reseñas iniciales", "Ajustes finales de rendimiento"]} />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Entregables */}
+                    <section id="entregables" className="py-20 px-4">
+                        <div className="max-w-7xl mx-auto">
+                            <div className="mb-12">
+                                <h2 className="text-3xl font-bold mb-4">Resultados Esperados (Entregables)</h2>
+                                <p className="text-slate-600 text-lg">Los componentes críticos que validan el éxito del proyecto.</p>
+                            </div>
+                            <div className="grid md:grid-cols-3 gap-6">
+                                <DeliverableCard iconName="layers" title="App Web & Ficha Digital" list={["Mapa interactivo de ruta", "Menú digital con precios reales", "Etiquetas 'Pesca del Día'"]} />
+                                <DeliverableCard iconName="clipboard-list" title="Gestión de Datos" list={["Buscador por presupuesto/ambiente", "Sistema de reseñas y estrellas", "Directorio de proveedores locales"]} />
+                                <DeliverableCard iconName="code" title="Integraciones & API" list={["Dashboard para Restaurantes", "API para Hoteles y Agencias", "Rutas GPS (Maps/Waze)"]} />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="bg-slate-900 text-white py-16 px-4">
+                        <div className="max-w-5xl mx-auto text-center">
+                            <h2 className="text-2xl md:text-3xl font-bold mb-6">Visualización del Prototipo Final</h2>
+                            <p className="text-slate-400 mb-10">Accede a la visualización de la interfaz propuesta para los usuarios finales.</p>
+                            <button className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-xl font-bold text-lg transition-all flex items-center gap-3 mx-auto shadow-2xl">
+                                Ejecutar Ejemplo de Desarrollo <Icon name="external-link" className="h-5 w-5" />
+                            </button>
+                            <div className="mt-20 pt-8 border-t border-slate-800 text-slate-500 text-sm">
+                                <p>Proyecto Presentado para la Asignatura de Gestión de Proyectos</p>
+                                <p className="mt-1">Santa Marta - 2024</p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
